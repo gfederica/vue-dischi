@@ -1,0 +1,27 @@
+ 
+@import "../style/general.scss";
+
+ @mixin flex {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+ }
+ @mixin flex-vertical-only {
+     display: flex;
+     align-items: center;
+ }
+
+ @mixin flex-column-wrap {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+ }
+
+ @mixin button ($type: 'empty') {
+    padding: 12px;
+    @if $type == 'full' {
+        background-color: $blueColor;
+    } @else {
+        border: 2px solid $blueColor;
+    }
+ }
