@@ -2,6 +2,32 @@
 
 $lightGrey: #2E3A46;
 $darkGrey: #1E2D3B;
+$greyText: #737068;
 
 body { font-family: "Noto Sans";};
 
+
+h2 {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    font-size: 16px;
+    margin: 0 20px;
+
+}
+
+h3, h4 {
+    color: $greyText;
+    font-weight: 500;
+}
+
+h3 {    
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+h4 {    
+    font-size: 12px;
+    margin: 0;
+}

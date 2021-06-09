@@ -1,10 +1,10 @@
 <template>
   <div class="container-fluid">
-      <div class="row">
-        <div class="col" v-for="(album,index) in albums" :key="index">
+      <div class="container">
+        <div class="element" v-for="(album,index) in albums" :key="index">
             <Album :item="album"/>
         </div>
-    </div>
+        </div>
   </div>
 </template>
 
@@ -43,6 +43,18 @@ created: function() {
     .container-fluid {
         height: 90vh;
         background-color: $darkGrey;
+
+        .container {
+            width: 70%;
+            @include flex;
+            flex-wrap: wrap;
+            height: 100%;
+        }
+
+        .element {
+            width: 20%;
+        }
+
 
     }
 </style>
