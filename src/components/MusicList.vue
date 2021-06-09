@@ -1,26 +1,30 @@
 <template>
   <div class="container-fluid">
-      <div class="container">
+      <div class="container" v-if="!loading">
         <div class="element" v-for="(album,index) in albums" :key="index">
             <Album :item="album"/>
         </div>
         </div>
+        <Loader v-else/>
   </div>
 </template>
 
 <script>
 import Album from './Album.vue';
+import Loader from './Loader.vue';
 import axios from 'axios';
 
 export default {
 name: 'MusicList',
 components: {
-    Album
+    Album,
+    Loader
 },
 data: function() {
     return {
         apiUrl: 'https://flynn.boolean.careers/exercises/api/array/music',
-        albums: []
+        albums: [],
+        loading: true
     }
 },
 created: function() {
@@ -29,6 +33,9 @@ created: function() {
     .then (
         (response) => {
             this.albums = response.data.response;
+            setTimeout ( () => {
+                this.loading = false;
+            }, 4000);
         }
     )
 }
