@@ -1,9 +1,12 @@
 <template>
   <div class="container-fluid">
-      <div class="container" v-if="!loading">
-        <div class="element" v-for="(album,index) in albums" :key="index">
-            <Album :item="album"/>
-        </div>
+      <div class="select d-flex justify-content-center">
+        <select-genre :genres="genres" @searchGenre="searchAlbum"/>
+    </div>
+        <div class="container" v-if="!loading">
+            <div class="element" v-for="(album,index) in filteredGenre" :key="index">
+                <Album :item="album"/>
+            </div>
         </div>
         <Loader v-else/>
   </div>
@@ -13,18 +16,43 @@
 import Album from './Album.vue';
 import Loader from './Loader.vue';
 import axios from 'axios';
+import SelectGenre from './SelectGenre.vue';
 
 export default {
 name: 'MusicList',
 components: {
     Album,
-    Loader
+    Loader,
+    SelectGenre
 },
 data: function() {
     return {
         apiUrl: 'https://flynn.boolean.careers/exercises/api/array/music',
         albums: [],
+        selectedGenre: "",
         loading: true
+    }
+},
+computed: {
+    genres: function() {
+        const newArray = [];
+        this.albums.forEach((element) => {
+            if (!newArray.includes(element.genre)) {
+            newArray.push(element.genre);
+            }
+        })
+        return newArray;
+    },
+    filteredGenre: function () {
+        const newArray = this.albums.filter ((element) => {
+            return element.genre.includes(this.selectedGenre)
+        });
+        return newArray;
+    }
+},
+methods: {
+    searchAlbum: function(text){
+        this.selectedGenre = text;
     }
 },
 created: function() {
@@ -33,9 +61,7 @@ created: function() {
     .then (
         (response) => {
             this.albums = response.data.response;
-            setTimeout ( () => {
-                this.loading = false;
-            }, 4000);
+            this.loading = false;
         }
     )
 }
@@ -50,6 +76,8 @@ created: function() {
     .container-fluid {
         height: 90vh;
         background-color: $darkGrey;
+        display: flex;
+        flex-direction: column;
 
         .container {
             width: 70%;

@@ -6,7 +6,11 @@
 
 <script>
 export default {
-  name: 'Header'
+  name: 'Header',
+  data: function() {
+    return {
+    }
+  }
 }
 </script>
 
